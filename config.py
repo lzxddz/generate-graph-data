@@ -7,7 +7,7 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-write_head = True
+write_head = False
 
 node_count = 10000
 rel_count = node_count * 17

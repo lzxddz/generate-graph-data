@@ -1,4 +1,4 @@
-bin/neo4j-admin import --id-type=STRING \
+./bin/neo4j-admin import --id-type=STRING \
 --delimiter=, \
 --ignore-extra-columns=true \
 --ignore-duplicate-nodes=true \
@@ -8,8 +8,8 @@ bin/neo4j-admin import --id-type=STRING \
 --nodes:person="/root/pandadb/generate-graph-data/output/header/data_person.csv,/root/pandadb/generate-graph-data/output/data_person.csv" \
 --nodes:topic="/root/pandadb/generate-graph-data/output/header/data_topic.csv,/root/pandadb/generate-graph-data/output/data_topic.csv" \
 --nodes:organization="/root/pandadb/generate-graph-data/output/header/data_org.csv,/root/pandadb/generate-graph-data/output/data_org.csv" \
---nodes:citations="/root/pandadb/generate-graph-data/output/header/data_citations.csv,/root/pandadb/generate-graph-data/output/data_citations.csv," \
---nodes:publications="/root/pandadb/generate-graph-data/output/header/data_publications.csv,/root/pandadb/generate-graph-data/output/data_publications.csv," \
+--nodes:citations="/root/pandadb/generate-graph-data/output/header/data_citations.csv,/root/pandadb/generate-graph-data/output/data_citations.csv" \
+--nodes:publications="/root/pandadb/generate-graph-data/output/header/data_publications.csv,/root/pandadb/generate-graph-data/output/data_publications.csv" \
 --relationships:paper_reference="/root/pandadb/generate-graph-data/output/header/paper_reference_related_to.csv,/root/pandadb/generate-graph-data/output/paper_reference_related_to.csv" \
 --relationships:related_to="/root/pandadb/generate-graph-data/output/header/related_to_related_to.csv,/root/pandadb/generate-graph-data/output/related_to_related_to.csv" \
 --relationships:be_cited="/root/pandadb/generate-graph-data/output/header/rel_be_cited.csv,/root/pandadb/generate-graph-data/output/rel_be_cited.csv" \
