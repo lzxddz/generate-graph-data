@@ -1,0 +1,1 @@
+languages = ["en", "en-us", "zh-hans", "zh-hant"]

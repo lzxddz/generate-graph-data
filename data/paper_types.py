@@ -1,0 +1,1 @@
+paper_types = ["journal", "paper", "reserach", "abstract"]
