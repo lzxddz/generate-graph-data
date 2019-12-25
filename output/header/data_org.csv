@@ -1,0 +1,1 @@
+orgId:ID(organization),nameEn,nameCn,longitude:DOUBLE,latitude:DOUBLE,country,publications:INT,citations:INT,publications5:INT,citations5:INT

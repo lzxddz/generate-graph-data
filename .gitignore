@@ -9,7 +9,6 @@ store_lock
 *.tmp
 logs/
 *.log
-**/output/
 .DS_Store
 .idea
 .vscode
