@@ -1,5 +1,8 @@
 # 生成节点数据
 
+
+from multiprocessing import Process
+from threading import Thread
 import sys
 import random
 import time
@@ -19,7 +22,7 @@ def gen_data_paper_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
         k = 0
         for i in range(count):
             p_id = str(i) #util.gen_uuid()
-            p_id_list.append(p_id)
+            # p_id_list.append(p_id)
             p_title_en = util.gen_title_en()
             p_doi = util.gen_doi()
             p_type = util.gen_paper_type()
@@ -48,7 +51,7 @@ def gen_data_person_nodes(count=0, save_path=None, delimiter=',') -> "List[str]"
         k = 0
         for i in range(count):
             p_id = str(i) #util.gen_uuid()
-            p_id_list.append(p_id)
+            # p_id_list.append(p_id)
             p_name_en = util.gen_name_en()
             p_nat = util.gen_country()
             p_org = util.gen_org_en()
@@ -78,7 +81,7 @@ def gen_data_org_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
         k = 0
         for i in range(count):
             org_id = str(i) #util.gen_uuid()
-            org_id_list.append(org_id)
+            # org_id_list.append(org_id)
             org_name_en = util.gen_org_en()
             org_name_cn = util.gen_org_zh()
             org_lon = util.gen_longitude()
@@ -110,7 +113,7 @@ def gen_data_topic_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
         k = 0
         for i in range(count):
             t_id = str(i)
-            topic_id_list.append(t_id)
+            # topic_id_list.append(t_id)
             t_name = util.gen_sentence_en(3)
             t_rank = random.randint(1, t_rank_max)
 
@@ -335,49 +338,264 @@ def gen_rel_write_paper(count=0, save_path=None, person_count=0, paper_count=0, 
     return count
 
 
-if __name__ == "__main__":
+def main1():
     begin = time.time()
-    paper_ids = gen_data_paper_nodes(count=config.paper_count, save_path=config.paper_csv_path)
+    paper_ids = gen_data_paper_nodes(
+        count=config.paper_count, save_path=config.paper_csv_path)
     util.do_dump(paper_ids, config.paper_ids_path)
-    person_ids = gen_data_person_nodes(count=config.person_count, save_path=config.person_csv_path)
+    person_ids = gen_data_person_nodes(
+        count=config.person_count, save_path=config.person_csv_path)
     util.do_dump(person_ids, config.person_ids_path)
-    org_ids = gen_data_org_nodes(count=config.org_count, save_path=config.org_csv_path)
+    org_ids = gen_data_org_nodes(
+        count=config.org_count, save_path=config.org_csv_path)
     util.do_dump(org_ids, config.org_ids_path)
-    topic_ids = gen_data_topic_nodes(count=config.topic_count, save_path=config.topic_csv_path)
+    topic_ids = gen_data_topic_nodes(
+        count=config.topic_count, save_path=config.topic_csv_path)
     util.do_dump(topic_ids, config.topic_ids_path)
     gen_data_citations(save_path=config.citations_csv_path)
     gen_data_publications(save_path=config.publications_csv_path)
 
-    gen_rel_be_cited(count=config.be_cited_count, save_path=config.be_cited_csv_path, paper_count=config.paper_count)
+    gen_rel_be_cited(count=config.be_cited_count,
+                     save_path=config.be_cited_csv_path, paper_count=config.paper_count)
     gen_rel_paper_belong_topic(
-       count=config.paper_belong_topic_count, save_path=config.paper_belong_topic_csv_path, 
-       paper_count=config.paper_count, topic_count=config.topic_count)
+        count=config.paper_belong_topic_count, save_path=config.paper_belong_topic_csv_path,
+        paper_count=config.paper_count, topic_count=config.topic_count)
     gen_rel_person_belong_topic(
         count=config.person_belong_topic_count, save_path=config.person_belong_topic_csv_path,
         person_count=config.person_count, topic_count=config.topic_count)
-    gen_rel_person_citation(count=config.person_citation_count, 
-        save_path=config.person_citation_csv_path, 
-        person_count=config.person_count)
-    gen_rel_person_publication(count=config.person_publication_count, 
-        save_path=config.person_publication_csv_path, 
-        person_count=config.person_count)
+    gen_rel_person_citation(count=config.person_citation_count,
+                            save_path=config.person_citation_csv_path,
+                            person_count=config.person_count)
+    gen_rel_person_publication(count=config.person_publication_count,
+                               save_path=config.person_publication_csv_path,
+                               person_count=config.person_count)
     gen_rel_paper_related_to_paper(
-        count=config.related_to_related_to_count, 
+        count=config.related_to_related_to_count,
         save_path=config.related_to_related_to_csv_path,
         paper_count=config.paper_count)
     gen_rel_paper_related_to_paper(
-        count=config.paper_reference_related_to_count, 
+        count=config.paper_reference_related_to_count,
         save_path=config.paper_reference_related_to_csv_path,
         paper_count=config.paper_count)
     gen_rel_topic_belong_topic(
-        count=config.topic_belong_topic_count, save_path=config.topic_belong_topic_csv_path, 
+        count=config.topic_belong_topic_count, save_path=config.topic_belong_topic_csv_path,
         topic_count=config.topic_count)
     gen_rel_work_for(
-        count=config.work_for_count, save_path=config.work_for_csv_path, 
+        count=config.work_for_count, save_path=config.work_for_csv_path,
         person_count=config.person_count, org_count=config.org_count)
     gen_rel_write_paper(count=config.write_paper_count, save_path=config.write_paper_csv_path,
                         paper_count=config.paper_count, person_count=config.person_count)
 
     end = time.time()
     print("Time used: "+str(end-begin))
-    sys.exit(0)
+
+
+def main2():
+    begin = time.time()
+    t1 = Thread(target=gen_data_paper_nodes, 
+        kwargs={"count":config.paper_count, "save_path":config.paper_csv_path})
+
+    t2 = Thread(target=gen_data_person_nodes,
+                          kwargs={"count": config.person_count, "save_path": config.person_csv_path})
+    
+    t3 = Thread(target=gen_data_org_nodes,
+                          kwargs={"count": config.org_count, "save_path": config.org_csv_path})
+
+    t4 = Thread(target=gen_data_topic_nodes,
+                          kwargs={"count": config.topic_count, "save_path": config.topic_csv_path})
+
+    gen_data_citations(save_path=config.citations_csv_path)
+    gen_data_publications(save_path=config.publications_csv_path)
+
+    t5 = Thread(target=gen_rel_be_cited,
+                          kwargs={"count": config.be_cited_count, 
+                          "save_path": config.be_cited_csv_path, 
+                                  "paper_count": config.paper_count})
+
+    t6 = Thread(target=gen_rel_paper_belong_topic,
+                          kwargs={"count":config.paper_belong_topic_count, 
+                                  "save_path":config.paper_belong_topic_csv_path,
+                                  "paper_count":config.paper_count, 
+                                  "topic_count":config.topic_count})
+
+    t7 = Thread(target=gen_rel_person_belong_topic,
+                          kwargs={"count":config.person_belong_topic_count, 
+                                  "save_path":config.person_belong_topic_csv_path,
+                                  "person_count":config.person_count, 
+                                  "topic_count":config.topic_count})
+
+    t8 = Thread(target=gen_rel_person_citation,
+                          kwargs={"count":config.person_citation_count,
+                                  "save_path":config.person_citation_csv_path,
+                                  "person_count":config.person_count})
+
+    t9 = Thread(target=gen_rel_person_publication,
+                          kwargs={"count":config.person_publication_count,
+                                  "save_path":config.person_publication_csv_path,
+                                  "person_count":config.person_count})
+
+    t10 = Thread(target=gen_rel_paper_related_to_paper,
+                           kwargs={"count":config.related_to_related_to_count,
+                                   "save_path":config.related_to_related_to_csv_path,
+                                   "paper_count":config.paper_count})
+
+    t11 = Thread(target=gen_rel_paper_related_to_paper,
+                           kwargs={"count": config.paper_reference_related_to_count,
+                                   "save_path": config.paper_reference_related_to_csv_path,
+                                   "paper_count": config.paper_count})
+
+    t12 = Thread(target=gen_rel_topic_belong_topic,
+                           kwargs={"count": config.topic_belong_topic_count,
+                                   "save_path": config.topic_belong_topic_csv_path,
+                                   "topic_count":config.topic_count})
+    
+    t13 = Thread(target=gen_rel_work_for,
+                           kwargs={"count": config.work_for_count,
+                                   "save_path": config.work_for_csv_path,
+                                   "person_count":config.person_count, 
+                                   "org_count":config.org_count})
+
+    t14 = Thread(target=gen_rel_write_paper,
+                           kwargs={"count": config.write_paper_count,
+                                   "save_path": config.write_paper_csv_path,
+                                   "paper_count": config.paper_count, 
+                                   "person_count": config.person_count})
+    
+    t1.start()
+    t1.join()
+    t2.start()
+    t2.join()
+    t3.start()
+    t3.join()
+    t4.start()
+    t4.join()
+    t5.start()
+    t5.join()
+    t6.start()
+    t6.join()
+    t7.start()
+    t7.join()
+    t8.start()
+    t8.join()
+    t9.start()
+    t9.join()
+    t10.start()
+    t10.join()
+    t11.start()
+    t11.join()
+    t12.start()
+    t12.join()
+    t13.start()
+    t13.join()
+    t14.start()
+    t14.join()
+
+    end = time.time()
+    print("Time used: "+str(end-begin))
+
+
+def main3():
+    begin = time.time()
+    t1 = Process(target=gen_data_paper_nodes,
+                 kwargs={"count": config.paper_count, "save_path": config.paper_csv_path})
+
+    t2 = Process(target=gen_data_person_nodes,
+                 kwargs={"count": config.person_count, "save_path": config.person_csv_path})
+
+    t3 = Process(target=gen_data_org_nodes,
+                 kwargs={"count": config.org_count, "save_path": config.org_csv_path})
+
+    t4 = Process(target=gen_data_topic_nodes,
+                 kwargs={"count": config.topic_count, "save_path": config.topic_csv_path})
+
+    gen_data_citations(save_path=config.citations_csv_path)
+    gen_data_publications(save_path=config.publications_csv_path)
+
+    t5 = Process(target=gen_rel_be_cited,
+                 kwargs={"count": config.be_cited_count,
+                         "save_path": config.be_cited_csv_path,
+                         "paper_count": config.paper_count})
+
+    t6 = Process(target=gen_rel_paper_belong_topic,
+                 kwargs={"count": config.paper_belong_topic_count,
+                         "save_path": config.paper_belong_topic_csv_path,
+                         "paper_count": config.paper_count,
+                         "topic_count": config.topic_count})
+
+    t7 = Process(target=gen_rel_person_belong_topic,
+                 kwargs={"count": config.person_belong_topic_count,
+                         "save_path": config.person_belong_topic_csv_path,
+                         "person_count": config.person_count,
+                         "topic_count": config.topic_count})
+
+    t8 = Process(target=gen_rel_person_citation,
+                 kwargs={"count": config.person_citation_count,
+                         "save_path": config.person_citation_csv_path,
+                         "person_count": config.person_count})
+
+    t9 = Process(target=gen_rel_person_publication,
+                 kwargs={"count": config.person_publication_count,
+                         "save_path": config.person_publication_csv_path,
+                         "person_count": config.person_count})
+
+    t10 = Process(target=gen_rel_paper_related_to_paper,
+                  kwargs={"count": config.related_to_related_to_count,
+                          "save_path": config.related_to_related_to_csv_path,
+                          "paper_count": config.paper_count})
+
+    t11 = Process(target=gen_rel_paper_related_to_paper,
+                  kwargs={"count": config.paper_reference_related_to_count,
+                          "save_path": config.paper_reference_related_to_csv_path,
+                          "paper_count": config.paper_count})
+
+    t12 = Process(target=gen_rel_topic_belong_topic,
+                  kwargs={"count": config.topic_belong_topic_count,
+                          "save_path": config.topic_belong_topic_csv_path,
+                          "topic_count": config.topic_count})
+
+    t13 = Process(target=gen_rel_work_for,
+                  kwargs={"count": config.work_for_count,
+                          "save_path": config.work_for_csv_path,
+                          "person_count": config.person_count,
+                          "org_count": config.org_count})
+
+    t14 = Process(target=gen_rel_write_paper,
+                  kwargs={"count": config.write_paper_count,
+                          "save_path": config.write_paper_csv_path,
+                          "paper_count": config.paper_count,
+                          "person_count": config.person_count})
+
+    t1.start()
+    t1.join()
+    t2.start()
+    t2.join()
+    t3.start()
+    t3.join()
+    t4.start()
+    t4.join()
+    t5.start()
+    t5.join()
+    t6.start()
+    t6.join()
+    t7.start()
+    t7.join()
+    t8.start()
+    t8.join()
+    t9.start()
+    t9.join()
+    t10.start()
+    t10.join()
+    t11.start()
+    t11.join()
+    t12.start()
+    t12.join()
+    t13.start()
+    t13.join()
+    t14.start()
+    t14.join()
+
+    end = time.time()
+    print("Time used: "+str(end-begin))
+
+if __name__ == "__main__":
+    main2()
