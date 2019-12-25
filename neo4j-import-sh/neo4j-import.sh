@@ -10,8 +10,8 @@
 --nodes:organization="/root/pandadb/generate-graph-data/output/header/data_org.csv,/root/pandadb/generate-graph-data/output/data_org.csv" \
 --nodes:citations="/root/pandadb/generate-graph-data/output/header/data_citations.csv,/root/pandadb/generate-graph-data/output/data_citations.csv" \
 --nodes:publications="/root/pandadb/generate-graph-data/output/header/data_publications.csv,/root/pandadb/generate-graph-data/output/data_publications.csv" \
---relationships:paper_reference="/root/pandadb/generate-graph-data/output/header/paper_reference_related_to.csv,/root/pandadb/generate-graph-data/output/paper_reference_related_to.csv" \
---relationships:related_to="/root/pandadb/generate-graph-data/output/header/related_to_related_to.csv,/root/pandadb/generate-graph-data/output/related_to_related_to.csv" \
+--relationships:paper_reference="/root/pandadb/generate-graph-data/output/header/rel_paper_reference_related_to.csv,/root/pandadb/generate-graph-data/output/rel_paper_reference_related_to.csv" \
+--relationships:related_to="/root/pandadb/generate-graph-data/output/header/rel_related_to_related_to.csv,/root/pandadb/generate-graph-data/output/rel_related_to_related_to.csv" \
 --relationships:be_cited="/root/pandadb/generate-graph-data/output/header/rel_be_cited.csv,/root/pandadb/generate-graph-data/output/rel_be_cited.csv" \
 --relationships:paper_belong_topic="/root/pandadb/generate-graph-data/output/header/rel_paper_belong_topic.csv,/root/pandadb/generate-graph-data/output/rel_paper_belong_topic.csv" \
 --relationships:topic_belong_topic="/root/pandadb/generate-graph-data/output/header/rel_topic_belong_topic.csv,/root/pandadb/generate-graph-data/output/rel_topic_belong_topic.csv" \

@@ -18,7 +18,7 @@ def gen_data_paper_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
             f.write("\n")
         k = 0
         for i in range(count):
-            p_id = util.gen_uuid()
+            p_id = str(i) #util.gen_uuid()
             p_id_list.append(p_id)
             p_title_en = util.gen_title_en()
             p_doi = util.gen_doi()
@@ -47,7 +47,7 @@ def gen_data_person_nodes(count=0, save_path=None, delimiter=',') -> "List[str]"
             f.write("\n")
         k = 0
         for i in range(count):
-            p_id = util.gen_uuid()
+            p_id = str(i) #util.gen_uuid()
             p_id_list.append(p_id)
             p_name_en = util.gen_name_en()
             p_nat = util.gen_country()
@@ -77,7 +77,7 @@ def gen_data_org_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
             f.write("\n")
         k = 0
         for i in range(count):
-            org_id = util.gen_uuid()
+            org_id = str(i) #util.gen_uuid()
             org_id_list.append(org_id)
             org_name_en = util.gen_org_en()
             org_name_cn = util.gen_org_zh()
@@ -144,7 +144,7 @@ def gen_data_publications(save_path=None, delimiter=','):
         else:
             f.write("publications")
 
-def gen_rel_be_cited(count=0, save_path=None, paper_ids=[], delimiter=','):
+def gen_rel_be_cited(count=0, save_path=None, paper_count=0, paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["paper_id:END_ID(paper)","cite_id:START_ID(paper)"]
@@ -154,8 +154,10 @@ def gen_rel_be_cited(count=0, save_path=None, paper_ids=[], delimiter=','):
         if config.write_head:
             f.write(",".join(heads))
             f.write("\n")
-        for i in range(count):
-            paper_id, cite_id = random.choices(paper_ids, k=2)
+        for i in range(count):            
+            # paper_id, cite_id = random.choices(paper_ids, k=2)
+            paper_id = random.randint(0, paper_count)
+            cite_id = random.randint(0, paper_count)
             f.write("%s,%s\n" % (paper_id, cite_id))
             k = k + 1
             if k == 10000:
@@ -163,7 +165,7 @@ def gen_rel_be_cited(count=0, save_path=None, paper_ids=[], delimiter=','):
     return count
 
 
-def gen_rel_paper_belong_topic(count=0, save_path=None, paper_ids=[], topic_ids=[], delimiter=','):
+def gen_rel_paper_belong_topic(count=0, save_path=None, paper_count=0, paper_ids=[], topic_count=0,topic_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["paper_id:START_ID(paper)", "tag_id:END_ID(topic)"]
@@ -173,8 +175,10 @@ def gen_rel_paper_belong_topic(count=0, save_path=None, paper_ids=[], topic_ids=
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            paper_id = random.choice(paper_ids)
-            tag_id = random.choice(topic_ids)
+            # paper_id = random.choice(paper_ids)
+            # tag_id = random.choice(topic_ids)
+            paper_id = random.randint(0, paper_count)
+            tag_id = random.randint(0, topic_count)
             f.write("%s,%s\n" % (paper_id, tag_id))
             k = k + 1
             if k == 10000:
@@ -182,7 +186,7 @@ def gen_rel_paper_belong_topic(count=0, save_path=None, paper_ids=[], topic_ids=
     return count
 
 
-def gen_rel_person_belong_topic(count=0, save_path=None, person_ids=[], topic_ids=[], delimiter=','):
+def gen_rel_person_belong_topic(count=0, save_path=None, person_count=0, person_ids=[], topic_count=0, topic_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["person_id:START_ID(person)", "tag_id:END_ID(topic)"]
@@ -192,8 +196,10 @@ def gen_rel_person_belong_topic(count=0, save_path=None, person_ids=[], topic_id
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            person_id = random.choice(person_ids)
-            tag_id = random.choice(topic_ids)
+            # person_id = random.choice(person_ids)
+            # tag_id = random.choice(topic_ids)
+            person_id = random.randint(0, person_count)
+            tag_id = random.randint(0, topic_count)
             f.write("%s,%s\n" % (person_id, tag_id))
             k = k + 1
             if k == 10000:
@@ -201,7 +207,7 @@ def gen_rel_person_belong_topic(count=0, save_path=None, person_ids=[], topic_id
     return count
 
 
-def gen_rel_person_citation(count=0, save_path=None, person_ids=[], citations=["citations"], delimiter=','):
+def gen_rel_person_citation(count=0, save_path=None, person_count=0, person_ids=[], citations=["citations"], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["pesonId:START_ID(person)", "year", "value:INT", "desc:END_ID(citations)"]
@@ -211,7 +217,8 @@ def gen_rel_person_citation(count=0, save_path=None, person_ids=[], citations=["
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            person_id = random.choice(person_ids)
+            # person_id = random.choice(person_ids)
+            person_id = random.randint(0, person_count)
             year = util.gen_year()
             value = random.randint(1, 1000)
             desc = citations[0]
@@ -222,7 +229,7 @@ def gen_rel_person_citation(count=0, save_path=None, person_ids=[], citations=["
     return count
 
 
-def gen_rel_person_publication(count=0, save_path=None, person_ids=[], 
+def gen_rel_person_publication(count=0, save_path=None, person_count=0, person_ids=[],
                                 publications=["publications"], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -233,7 +240,8 @@ def gen_rel_person_publication(count=0, save_path=None, person_ids=[],
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            person_id = random.choice(person_ids)
+            person_id = random.randint(0, person_count)
+            # person_id = random.choice(person_ids)
             year = util.gen_year()
             value = random.randint(1, 1000)
             desc = publications[0]
@@ -244,7 +252,7 @@ def gen_rel_person_publication(count=0, save_path=None, person_ids=[],
     return count
 
 
-def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_ids=[], delimiter=','):
+def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_count=0, paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["paper_id:START_ID(paper)", "rela_id:END_ID(paper)"]
@@ -254,7 +262,9 @@ def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_ids=[], delimi
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            paper_id, rela_id = random.choices(paper_ids, k=2)
+            # paper_id, rela_id = random.choices(paper_ids, k=2)
+            paper_id = random.randint(0, paper_count)
+            rela_id = random.randint(0, paper_count)
             f.write("%s,%s\n" % (paper_id, rela_id))
             k = k + 1
             if k == 10000:
@@ -262,7 +272,7 @@ def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_ids=[], delimi
     return count
 
 
-def gen_rel_topic_belong_topic(count=0, save_path=None,topic_ids=[], delimiter=','):
+def gen_rel_topic_belong_topic(count=0, save_path=None, topic_ids=[], topic_count=0, delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["tagId:START_ID(topic)", "parentId:END_ID(topic)"]
@@ -272,7 +282,9 @@ def gen_rel_topic_belong_topic(count=0, save_path=None,topic_ids=[], delimiter='
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            tag_id, parent_id = random.choices(topic_ids, k=2)
+            tag_id = random.randint(0, topic_count)
+            parent_id = random.randint(0, topic_count)
+            # tag_id, parent_id = random.choices(topic_ids, k=2)
             f.write("%s,%s\n" % (tag_id, parent_id))
             k = k + 1
             if k == 10000:
@@ -280,7 +292,7 @@ def gen_rel_topic_belong_topic(count=0, save_path=None,topic_ids=[], delimiter='
     return count
 
 
-def gen_rel_work_for(count=0, save_path=None, person_ids=[], org_ids=[], delimiter=','):
+def gen_rel_work_for(count=0, save_path=None, person_count=0, org_count=0, person_ids=[], org_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["personId:START_ID(person)", "orgId:END_ID(organization)"]
@@ -290,8 +302,10 @@ def gen_rel_work_for(count=0, save_path=None, person_ids=[], org_ids=[], delimit
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            person_id = random.choice(person_ids)
-            org_id = random.choice(org_ids)
+            # person_id = random.choice(person_ids)
+            # org_id = random.choice(org_ids)
+            person_id = random.randint(0, person_count)
+            org_id = random.randint(0, org_count)
             f.write("%s,%s\n" % (person_id, org_id))
             k = k + 1
             if k == 10000:
@@ -299,7 +313,7 @@ def gen_rel_work_for(count=0, save_path=None, person_ids=[], org_ids=[], delimit
     return count
 
 
-def gen_rel_write_paper(count=0, save_path=None, person_ids=[], paper_ids=[], delimiter=','):
+def gen_rel_write_paper(count=0, save_path=None, person_count=0, paper_count=0, person_ids=[], paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
     heads = ["paper_id:END_ID(paper)", "person_id:START_ID(person)", "isFirstauthor:INT"]
@@ -309,8 +323,10 @@ def gen_rel_write_paper(count=0, save_path=None, person_ids=[], paper_ids=[], de
             f.write(",".join(heads))
             f.write("\n")
         for i in range(count):
-            paper_id = random.choice(paper_ids)
-            person_id = random.choice(person_ids)
+            # paper_id = random.choice(paper_ids)
+            # person_id = random.choice(person_ids)
+            paper_id = random.randint(0, paper_count)
+            person_id = random.randint(0, person_count)
             is_fa = random.randint(0, 1)
             f.write("%s,%s,%s\n" % (paper_id, person_id, str(is_fa)))
             k = k + 1
@@ -332,25 +348,35 @@ if __name__ == "__main__":
     gen_data_citations(save_path=config.citations_csv_path)
     gen_data_publications(save_path=config.publications_csv_path)
 
-    gen_rel_be_cited(count=config.be_cited_count, save_path=config.be_cited_csv_path, paper_ids=paper_ids)
+    gen_rel_be_cited(count=config.be_cited_count, save_path=config.be_cited_csv_path, paper_count=config.paper_count)
     gen_rel_paper_belong_topic(
-       count=config.paper_belong_topic_count, save_path=config.paper_belong_topic_csv_path, paper_ids=paper_ids, topic_ids=topic_ids)
+       count=config.paper_belong_topic_count, save_path=config.paper_belong_topic_csv_path, 
+       paper_count=config.paper_count, topic_count=config.topic_count)
     gen_rel_person_belong_topic(
-        count=config.person_belong_topic_count, save_path=config.person_belong_topic_csv_path, person_ids=person_ids, topic_ids=topic_ids)
-    gen_rel_person_citation(count=config.person_citation_count, save_path=config.person_citation_csv_path, person_ids=person_ids)
-    gen_rel_person_publication(count=config.person_publication_count, save_path=config.person_publication_csv_path, person_ids=person_ids)
+        count=config.person_belong_topic_count, save_path=config.person_belong_topic_csv_path,
+        person_count=config.person_count, topic_count=config.topic_count)
+    gen_rel_person_citation(count=config.person_citation_count, 
+        save_path=config.person_citation_csv_path, 
+        person_count=config.person_count)
+    gen_rel_person_publication(count=config.person_publication_count, 
+        save_path=config.person_publication_csv_path, 
+        person_count=config.person_count)
     gen_rel_paper_related_to_paper(
         count=config.related_to_related_to_count, 
-        save_path=config.related_to_related_to_csv_path, paper_ids=paper_ids)
+        save_path=config.related_to_related_to_csv_path,
+        paper_count=config.paper_count)
     gen_rel_paper_related_to_paper(
         count=config.paper_reference_related_to_count, 
-        save_path=config.paper_reference_related_to_csv_path, paper_ids=paper_ids)
+        save_path=config.paper_reference_related_to_csv_path,
+        paper_count=config.paper_count)
     gen_rel_topic_belong_topic(
-        count=config.topic_belong_topic_count, save_path=config.topic_belong_topic_csv_path, topic_ids=topic_ids)
+        count=config.topic_belong_topic_count, save_path=config.topic_belong_topic_csv_path, 
+        topic_count=config.topic_count)
     gen_rel_work_for(
-        count=config.work_for_count, save_path=config.work_for_csv_path, person_ids=person_ids, org_ids=org_ids)
+        count=config.work_for_count, save_path=config.work_for_csv_path, 
+        person_count=config.person_count, org_count=config.org_count)
     gen_rel_write_paper(count=config.write_paper_count, save_path=config.write_paper_csv_path,
-                        paper_ids=paper_ids, person_ids=person_ids)
+                        paper_count=config.paper_count, person_count=config.person_count)
 
     end = time.time()
     print("Time used: "+str(end-begin))
