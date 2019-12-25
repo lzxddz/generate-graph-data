@@ -2,6 +2,11 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
+
 write_head = True
 
 node_count = 10000
@@ -21,44 +26,44 @@ topic_belong_topic_count = int(rel_count * 0.003)
 work_for_count = int(rel_count * 0.015)
 write_paper_count = int(rel_count * 0.077)
 
-paper_csv_path = os.path.join(BASE_DIR, "output", "data_paper.csv")
-paper_ids_path = os.path.join(BASE_DIR, "output", "data_paper_ids.bin")
+paper_csv_path = os.path.join(OUTPUT_DIR, "data_paper.csv")
+paper_ids_path = os.path.join(OUTPUT_DIR, "data_paper_ids.bin")
 
-person_csv_path = os.path.join(BASE_DIR, "output", "data_person.csv")
-person_ids_path = os.path.join(BASE_DIR, "output", "data_person_ids.bin")
+person_csv_path = os.path.join(OUTPUT_DIR, "data_person.csv")
+person_ids_path = os.path.join(OUTPUT_DIR, "data_person_ids.bin")
 
-org_csv_path = os.path.join(BASE_DIR, "output", "data_org.csv")
-org_ids_path = os.path.join(BASE_DIR, "output", "data_org_ids.bin")
+org_csv_path = os.path.join(OUTPUT_DIR, "data_org.csv")
+org_ids_path = os.path.join(OUTPUT_DIR, "data_org_ids.bin")
 
-topic_csv_path = os.path.join(BASE_DIR, "output", "data_topic.csv")
-topic_ids_path = os.path.join(BASE_DIR, "output", "data_topic_ids.bin")
+topic_csv_path = os.path.join(OUTPUT_DIR, "data_topic.csv")
+topic_ids_path = os.path.join(OUTPUT_DIR, "data_topic_ids.bin")
 
-citations_csv_path = os.path.join(BASE_DIR, "output", "data_citations.csv")
-publications_csv_path = os.path.join(BASE_DIR, "output", "data_publications.csv")
+citations_csv_path = os.path.join(OUTPUT_DIR, "data_citations.csv")
+publications_csv_path = os.path.join(OUTPUT_DIR, "data_publications.csv")
 
 
-be_cited_csv_path = os.path.join(BASE_DIR, "output", "rel_be_cited.csv")
+be_cited_csv_path = os.path.join(OUTPUT_DIR, "rel_be_cited.csv")
 
 paper_belong_topic_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_paper_belong_topic.csv")
+    OUTPUT_DIR, "rel_paper_belong_topic.csv")
 
 person_belong_topic_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_person_belong_topic.csv")
+    OUTPUT_DIR, "rel_person_belong_topic.csv")
 
 person_citation_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_person_citation.csv")
+    OUTPUT_DIR, "rel_person_citation.csv")
 
 person_publication_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_person_publication.csv")
+    OUTPUT_DIR, "rel_person_publication.csv")
 
 related_to_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_related_to.csv")
+    OUTPUT_DIR, "rel_related_to.csv")
 
 topic_belong_topic_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_topic_belong_topic.csv")
+    OUTPUT_DIR, "rel_topic_belong_topic.csv")
 
 work_for_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_work_for.csv")
+    OUTPUT_DIR, "rel_work_for.csv")
 
 write_paper_csv_path = os.path.join(
-    BASE_DIR, "output", "rel_write_paper.csv")
+    OUTPUT_DIR, "rel_write_paper.csv")
