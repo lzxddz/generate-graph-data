@@ -17,14 +17,16 @@ person_count = int(node_count * 0.33)
 org_count = int(node_count * 0.0017)
 topic_count = int(node_count * 0.0183)
 be_cited_count = int(rel_count * 0.06)
-paper_belong_topic_count = int(rel_count * 0.32)
+paper_belong_topic_count = int(rel_count * 0.31)
 person_belong_topic_count = int(rel_count * 0.1)
 person_citation_count = int(rel_count * 0.26)
 person_publication_count = int(rel_count * 0.15)
-related_to_count = int(rel_count * 0.015)
+related_to_related_to_count = int(rel_count * 0.015)
+paper_reference_related_to_count = int(rel_count * 0.017)
+
 topic_belong_topic_count = int(rel_count * 0.003)
-work_for_count = int(rel_count * 0.015)
-write_paper_count = int(rel_count * 0.077)
+work_for_count = int(rel_count * 0.013)
+write_paper_count = int(rel_count * 0.072)
 
 paper_csv_path = os.path.join(OUTPUT_DIR, "data_paper.csv")
 paper_ids_path = os.path.join(OUTPUT_DIR, "data_paper_ids.bin")
@@ -56,8 +58,11 @@ person_citation_csv_path = os.path.join(
 person_publication_csv_path = os.path.join(
     OUTPUT_DIR, "rel_person_publication.csv")
 
-related_to_csv_path = os.path.join(
-    OUTPUT_DIR, "rel_related_to.csv")
+related_to_related_to_csv_path = os.path.join(
+    OUTPUT_DIR, "rel_related_to_related_to.csv")
+
+paper_reference_related_to_csv_path = os.path.join(
+    OUTPUT_DIR, "rel_paper_reference_related_to.csv")
 
 topic_belong_topic_csv_path = os.path.join(
     OUTPUT_DIR, "rel_topic_belong_topic.csv")

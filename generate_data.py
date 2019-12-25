@@ -340,7 +340,11 @@ if __name__ == "__main__":
     gen_rel_person_citation(count=config.person_citation_count, save_path=config.person_citation_csv_path, person_ids=person_ids)
     gen_rel_person_publication(count=config.person_publication_count, save_path=config.person_publication_csv_path, person_ids=person_ids)
     gen_rel_paper_related_to_paper(
-        count=config.related_to_count, save_path=config.related_to_csv_path, paper_ids=paper_ids)
+        count=config.related_to_related_to_count, 
+        save_path=config.related_to_related_to_csv_path, paper_ids=paper_ids)
+    gen_rel_paper_related_to_paper(
+        count=config.paper_reference_related_to_count, 
+        save_path=config.paper_reference_related_to_csv_path, paper_ids=paper_ids)
     gen_rel_topic_belong_topic(
         count=config.topic_belong_topic_count, save_path=config.topic_belong_topic_csv_path, topic_ids=topic_ids)
     gen_rel_work_for(

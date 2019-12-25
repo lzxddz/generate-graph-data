@@ -13,3 +13,5 @@ logs/
 .idea
 .vscode
 __pycache__
+output/data_*
+output/rel_*
