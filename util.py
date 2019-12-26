@@ -26,6 +26,18 @@ def do_load(file_path):
     return obj
 
 
+def stat_consume_time(func):
+    """统计花费时间装饰器"""
+    def inner(*args, **kwargs):
+        begin = time.time()
+        res = func(*args, **kwargs)
+        end = time.time()
+        print("run func <%s> ...\n usingtime: %s s" %
+              (str(func), (end-begin)/1000))
+        return res
+    return inner
+
+
 def gen_date() -> str:   
     return fk_en.date().replace("-", "")
 

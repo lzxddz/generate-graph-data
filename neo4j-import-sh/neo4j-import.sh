@@ -21,4 +21,4 @@ nohup \
 --relationships:person_publication="/root/pandadb/generate-graph-data/output/header/rel_person_publication.csv,/root/pandadb/generate-graph-data/output/rel_person_publication.csv" \
 --relationships:work_for="/root/pandadb/generate-graph-data/output/header/rel_work_for.csv,/root/pandadb/generate-graph-data/output/rel_work_for.csv" \
 --relationships:write_paper="/root/pandadb/generate-graph-data/output/header/rel_write_paper.csv,/root/pandadb/generate-graph-data/output/rel_write_paper.csv" 
-> /nohup.log 2>&1 &
+> nohup.log 2>&1 &

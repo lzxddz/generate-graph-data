@@ -1,6 +1,5 @@
 # 生成节点数据
 
-
 from multiprocessing import Process
 from threading import Thread
 import sys
@@ -10,6 +9,7 @@ import util
 import config
 
 
+@util.stat_consume_time
 def gen_data_paper_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
     if save_path is None:
         raise Exception("save_path is None")
@@ -38,6 +38,7 @@ def gen_data_paper_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
     return p_id_list
 
 
+@util.stat_consume_time
 def gen_data_person_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
     if save_path is None:
         raise Exception("save_path is None")
@@ -67,7 +68,7 @@ def gen_data_person_nodes(count=0, save_path=None, delimiter=',') -> "List[str]"
                 f.flush()
     return p_id_list
 
-
+@util.stat_consume_time
 def gen_data_org_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
     if save_path is None:
         raise Exception("save_path is None")
@@ -99,7 +100,7 @@ def gen_data_org_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
                 f.flush()
     return org_id_list
 
-
+@util.stat_consume_time
 def gen_data_topic_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
     if save_path is None:
         raise Exception("save_path is None")
@@ -123,7 +124,7 @@ def gen_data_topic_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
                 f.flush()
     return topic_id_list
 
-
+@util.stat_consume_time
 def gen_data_citations(save_path=None, delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -135,7 +136,7 @@ def gen_data_citations(save_path=None, delimiter=','):
         else:        
             f.write("citations")
 
-
+@util.stat_consume_time
 def gen_data_publications(save_path=None, delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -146,7 +147,7 @@ def gen_data_publications(save_path=None, delimiter=','):
             f.write("\n")
         else:
             f.write("publications")
-
+@util.stat_consume_time
 def gen_rel_be_cited(count=0, save_path=None, paper_count=0, paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -167,7 +168,7 @@ def gen_rel_be_cited(count=0, save_path=None, paper_count=0, paper_ids=[], delim
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_paper_belong_topic(count=0, save_path=None, paper_count=0, paper_ids=[], topic_count=0,topic_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -188,7 +189,7 @@ def gen_rel_paper_belong_topic(count=0, save_path=None, paper_count=0, paper_ids
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_person_belong_topic(count=0, save_path=None, person_count=0, person_ids=[], topic_count=0, topic_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -209,7 +210,7 @@ def gen_rel_person_belong_topic(count=0, save_path=None, person_count=0, person_
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_person_citation(count=0, save_path=None, person_count=0, person_ids=[], citations=["citations"], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -231,7 +232,7 @@ def gen_rel_person_citation(count=0, save_path=None, person_count=0, person_ids=
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_person_publication(count=0, save_path=None, person_count=0, person_ids=[],
                                 publications=["publications"], delimiter=','):
     if save_path is None:
@@ -254,7 +255,7 @@ def gen_rel_person_publication(count=0, save_path=None, person_count=0, person_i
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_count=0, paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -274,7 +275,7 @@ def gen_rel_paper_related_to_paper(count=0, save_path=None, paper_count=0, paper
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_topic_belong_topic(count=0, save_path=None, topic_ids=[], topic_count=0, delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -294,7 +295,7 @@ def gen_rel_topic_belong_topic(count=0, save_path=None, topic_ids=[], topic_coun
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_work_for(count=0, save_path=None, person_count=0, org_count=0, person_ids=[], org_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -315,7 +316,7 @@ def gen_rel_work_for(count=0, save_path=None, person_count=0, org_count=0, perso
                 f.flush()
     return count
 
-
+@util.stat_consume_time
 def gen_rel_write_paper(count=0, save_path=None, person_count=0, paper_count=0, person_ids=[], paper_ids=[], delimiter=','):
     if save_path is None:
         raise Exception("save_path is None")
@@ -598,4 +599,4 @@ def main3():
     print("Time used: "+str(end-begin))
 
 if __name__ == "__main__":
-    main2()
+    main3()
