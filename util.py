@@ -33,7 +33,7 @@ def stat_consume_time(func):
         res = func(*args, **kwargs)
         end = time.time()
         print("run func <%s> ...\n usingtime: %s s" %
-              (str(func), (end-begin)/1000))
+              (str(func), (end-begin)))
         return res
     return inner
 
