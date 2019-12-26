@@ -9,7 +9,7 @@ if not os.path.exists(OUTPUT_DIR):
 
 write_head = False
 
-node_count = 100000
+node_count = 1000000
 rel_count = node_count * 17
 
 paper_count = int(node_count * 0.65)
