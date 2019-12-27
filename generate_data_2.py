@@ -20,7 +20,7 @@ def gen_data_paper_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
             f.write(",".join(heads))
             f.write("\n")
         k = 0
-        for i in range(count):
+        for i in range(count+1):
             p_id = str(i) #util.gen_uuid()
             # p_id_list.append(p_id)
             p_title_en = util.gen_title_en()
@@ -50,7 +50,7 @@ def gen_data_person_nodes(count=0, save_path=None, delimiter=',') -> "List[str]"
             f.write(",".join(heads))
             f.write("\n")
         k = 0
-        for i in range(count):
+        for i in range(count+1):
             p_id = str(i) #util.gen_uuid()
             # p_id_list.append(p_id)
             p_name_en = util.gen_name_en()
@@ -85,7 +85,7 @@ def gen_data_org_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
             f.write(",".join(heads))
             f.write("\n")
         k = 0
-        for i in range(count):
+        for i in range(count+1):
             org_id = str(i) #util.gen_uuid()
             # org_id_list.append(org_id)
             org_name_en = util.gen_org_en()
@@ -117,7 +117,7 @@ def gen_data_topic_nodes(count=0, save_path=None, delimiter=',') -> "List[str]":
             f.write("\n")
         t_rank_max = count//100 if count >100 else 10
         k = 0
-        for i in range(count):
+        for i in range(count+1):
             t_id = str(i)
             # topic_id_list.append(t_id)
             t_name = util.gen_sentence_en(3)
